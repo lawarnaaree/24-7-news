@@ -1,0 +1,21 @@
+/* ============================================
+   Layout — Shared wrapper with Navbar + Footer
+   ============================================ */
+
+import { Outlet } from 'react-router-dom';
+import Navbar from './Navbar';
+import Footer from './Footer';
+import BreakingTicker from '../News/BreakingTicker';
+
+export default function Layout() {
+  return (
+    <div className="app-layout">
+      <Navbar />
+      <BreakingTicker />
+      <main className="main-content">
+        <Outlet />
+      </main>
+      <Footer />
+    </div>
+  );
+}
