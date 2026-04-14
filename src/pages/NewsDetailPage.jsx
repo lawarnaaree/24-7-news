@@ -6,6 +6,7 @@ import { useParams, Link } from 'react-router-dom';
 import { getNewsById } from '../data/mockNews';
 import { SOURCES, CATEGORIES } from '../utils/constants';
 import { formatDateTime, timeAgo } from '../utils/formatDate';
+import { calculateReadTime } from '../utils/readTime';
 import './NewsDetailPage.css';
 
 export default function NewsDetailPage() {
@@ -25,6 +26,7 @@ export default function NewsDetailPage() {
 
   const source = SOURCES[article.source];
   const category = CATEGORIES.find((c) => c.slug === article.category);
+  const readTime = article.readTime || calculateReadTime(article.excerpt + " " + article.title);
 
   return (
     <div className="detail" id="news-detail-page">
@@ -56,6 +58,8 @@ export default function NewsDetailPage() {
             </div>
           </div>
           <div className="detail__time">
+            <span className="detail__time-read">{readTime}</span>
+            <span className="detail__separator">·</span>
             <span className="detail__time-ago">{timeAgo(article.publishedAt)}</span>
             <span className="detail__time-full">{formatDateTime(article.publishedAt)}</span>
           </div>

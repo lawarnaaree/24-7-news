@@ -175,26 +175,26 @@
 .feed-card__action:hover {
   background: var(--bg-tag);
   color: var(--text-secondary);
+  transform: translateY(-1px);
 }
 
-.feed-card__action:first-child:hover {
-  color: var(--accent-avocado);
+.feed-card__action--active-up {
+  color: var(--accent-avocado) !important;
+  background: var(--accent-avocado-soft) !important;
 }
 
-.feed-card__action:nth-child(2):hover {
-  color: var(--accent-water);
-}
-
-.feed-card__action:nth-child(3):hover {
-  color: var(--accent-cheese);
-}
-
-.feed-card__action:nth-child(4):hover {
-  color: var(--accent-cabbage);
+.feed-card__action--active-bookmark {
+  color: var(--accent-cheese) !important;
+  background: var(--accent-cheese-soft) !important;
 }
 
 .feed-card__action svg {
   flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.feed-card__action:active svg {
+  transform: scale(1.2);
 }
 
 /* ── Compact variant ──────────────── */

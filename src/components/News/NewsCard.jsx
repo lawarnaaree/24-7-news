@@ -3,14 +3,21 @@
    Source icon, title, tags, action bar
    ============================================ */
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { SOURCES, CATEGORIES } from '../../utils/constants';
 import { timeAgo } from '../../utils/formatDate';
+import { calculateReadTime } from '../../utils/readTime';
 import './NewsCard.css';
 
 export default function NewsCard({ article, variant = 'default' }) {
+  const [upvoted, setUpvoted] = useState(false);
+  const [bookmarked, setBookmarked] = useState(false);
   const source = SOURCES[article.source];
   const category = CATEGORIES.find((c) => c.slug === article.category);
+
+  // Generate read time based on excerpt if not present
+  const readTime = article.readTime || calculateReadTime(article.excerpt + " " + article.title);
 
   // Generate tags from category + source
   const tags = [
@@ -18,6 +25,8 @@ export default function NewsCard({ article, variant = 'default' }) {
     source?.country && `#${source.country}`,
     article.author && `#${article.author.split(' ')[0].toLowerCase()}`,
   ].filter(Boolean).slice(0, 3);
+
+  const initialUpvotes = article.viewCount ? Math.floor(article.viewCount / 100) : 0;
 
   return (
     <article className={`feed-card ${variant === 'compact' ? 'feed-card--compact' : ''}`} id={`card-${article.id}`}>
@@ -58,14 +67,19 @@ export default function NewsCard({ article, variant = 'default' }) {
       <div className="feed-card__footer">
         <div className="feed-card__meta">
           <span>{timeAgo(article.publishedAt)}</span>
-          {article.readTime && <span>· {article.readTime}</span>}
+          {readTime && <span>· {readTime}</span>}
         </div>
         <div className="feed-card__actions">
-          <button className="feed-card__action" title="Upvote" aria-label="Upvote">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <button 
+            className={`feed-card__action ${upvoted ? 'feed-card__action--active-up' : ''}`} 
+            onClick={() => setUpvoted(!upvoted)}
+            title="Upvote" 
+            aria-label="Upvote"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill={upvoted ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
               <path d="M12 19V5M5 12l7-7 7 7" />
             </svg>
-            <span>{article.viewCount ? Math.floor(article.viewCount / 100) : 0}</span>
+            <span>{initialUpvotes + (upvoted ? 1 : 0)}</span>
           </button>
           <button className="feed-card__action" title="Comment" aria-label="Comment">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -73,8 +87,13 @@ export default function NewsCard({ article, variant = 'default' }) {
             </svg>
             <span>{Math.floor(Math.random() * 30)}</span>
           </button>
-          <button className="feed-card__action" title="Bookmark" aria-label="Bookmark">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <button 
+            className={`feed-card__action ${bookmarked ? 'feed-card__action--active-bookmark' : ''}`} 
+            onClick={() => setBookmarked(!bookmarked)}
+            title="Bookmark" 
+            aria-label="Bookmark"
+          >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill={bookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
               <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
             </svg>
           </button>

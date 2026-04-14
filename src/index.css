@@ -1,58 +1,58 @@
 /* ============================================
-   24/7 NEWS — DESIGN SYSTEM (daily.dev inspired)
+   24/7 NEWS — DESIGN SYSTEM (GitHub Dark Theme)
    Dark-first, sidebar-layout, card-feed UI
    ============================================ */
 
-/* ---------- CSS Custom Properties (Dark Theme Default) ---------- */
+/* ---------- CSS Custom Properties (Dark Theme Default — GitHub) ---------- */
 :root {
-  /* Backgrounds — deep charcoal palette like daily.dev */
-  --bg-body: #0e1217;
-  --bg-sidebar: #0e1217;
-  --bg-header: #0e1217;
-  --bg-card: #1c1f26;
-  --bg-card-hover: #24272e;
-  --bg-surface: #14171d;
-  --bg-inset: #0a0d11;
-  --bg-input: #1c1f26;
-  --bg-tag: rgba(255, 255, 255, 0.06);
-  --bg-tag-hover: rgba(255, 255, 255, 0.1);
-  --bg-active: rgba(168, 133, 255, 0.12);
-  --bg-overlay: rgba(0, 0, 0, 0.6);
+  /* Backgrounds — GitHub dark default palette */
+  --bg-body: #0d1117;
+  --bg-sidebar: #010409;
+  --bg-header: #161b22;
+  --bg-card: #161b22;
+  --bg-card-hover: #1c2129;
+  --bg-surface: #0d1117;
+  --bg-inset: #010409;
+  --bg-input: #0d1117;
+  --bg-tag: rgba(110, 118, 129, 0.12);
+  --bg-tag-hover: rgba(110, 118, 129, 0.2);
+  --bg-active: rgba(56, 139, 253, 0.15);
+  --bg-overlay: rgba(1, 4, 9, 0.8);
 
-  /* Text */
-  --text-primary: #e4e6eb;
-  --text-secondary: #a8b3cf;
-  --text-tertiary: #6b7a99;
-  --text-muted: #4a5568;
-  --text-link: #ce9ffc;
-  --text-inverse: #0e1217;
+  /* Text — GitHub dark */
+  --text-primary: #e6edf3;
+  --text-secondary: #8b949e;
+  --text-tertiary: #6e7681;
+  --text-muted: #484f58;
+  --text-link: #58a6ff;
+  --text-inverse: #0d1117;
 
-  /* Accents — daily.dev uses subtle purples/blues */
-  --accent-primary: #a855f7;
-  --accent-primary-hover: #9333ea;
-  --accent-primary-soft: rgba(168, 85, 247, 0.12);
-  --accent-avocado: #66bb6a;
-  --accent-avocado-soft: rgba(102, 187, 106, 0.12);
-  --accent-cheese: #ffcc00;
-  --accent-cheese-soft: rgba(255, 204, 0, 0.1);
-  --accent-ketchup: #ff5252;
-  --accent-ketchup-soft: rgba(255, 82, 82, 0.1);
-  --accent-water: #5c9cf5;
-  --accent-water-soft: rgba(92, 156, 245, 0.12);
-  --accent-cabbage: #ce9ffc;
-  --accent-cabbage-soft: rgba(206, 159, 252, 0.1);
-  --accent-onion: #fc9cac;
+  /* Accents — GitHub's color system */
+  --accent-primary: #58a6ff;
+  --accent-primary-hover: #79c0ff;
+  --accent-primary-soft: rgba(56, 139, 253, 0.15);
+  --accent-avocado: #3fb950;
+  --accent-avocado-soft: rgba(63, 185, 80, 0.15);
+  --accent-cheese: #d29922;
+  --accent-cheese-soft: rgba(210, 153, 34, 0.15);
+  --accent-ketchup: #f85149;
+  --accent-ketchup-soft: rgba(248, 81, 73, 0.15);
+  --accent-water: #58a6ff;
+  --accent-water-soft: rgba(88, 166, 255, 0.15);
+  --accent-cabbage: #bc8cff;
+  --accent-cabbage-soft: rgba(188, 140, 255, 0.15);
+  --accent-onion: #f778ba;
 
-  /* Borders */
-  --border-primary: rgba(255, 255, 255, 0.05);
-  --border-hover: rgba(255, 255, 255, 0.1);
-  --border-active: rgba(168, 85, 247, 0.3);
-  --border-card: #2a2e37;
+  /* Borders — GitHub dark */
+  --border-primary: #21262d;
+  --border-hover: #30363d;
+  --border-active: #58a6ff;
+  --border-card: #30363d;
 
-  /* Shadows */
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.4);
-  --shadow-dropdown: 0 8px 32px rgba(0, 0, 0, 0.5);
+  /* Shadows — GitHub dark */
+  --shadow-card: 0 0 0 1px #30363d;
+  --shadow-card-hover: 0 3px 12px rgba(1, 4, 9, 0.4);
+  --shadow-dropdown: 0 8px 24px rgba(1, 4, 9, 0.75);
 
   /* Radii */
   --radius-xs: 4px;

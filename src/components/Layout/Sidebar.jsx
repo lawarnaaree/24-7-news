@@ -90,8 +90,8 @@ export default function Sidebar() {
         <nav className="sidebar__nav">
           <div className="sidebar__section-label">Saved</div>
           <Link
-            to="/search?q=nepal"
-            className="sidebar__link"
+            to="/bookmarks"
+            className={`sidebar__link ${isActive('/bookmarks') ? 'sidebar__link--active' : ''}`}
           >
             <span className="sidebar__link-icon">🔖</span>
             <span className="sidebar__link-label">Bookmarks</span>

@@ -5,6 +5,7 @@
 
 import { useState, useMemo } from 'react';
 import NewsList from '../components/News/NewsList';
+import NewsCard from '../components/News/NewsCard';
 import CategoryPill from '../components/Common/CategoryPill';
 import TrendingWidget from '../components/Widgets/TrendingWidget';
 import { getNewsByCategory } from '../data/mockNews';
@@ -14,7 +15,11 @@ import './HomePage.css';
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all');
 
-  const news = useMemo(() => getNewsByCategory(activeCategory), [activeCategory]);
+  const allNews = useMemo(() => getNewsByCategory(activeCategory), [activeCategory]);
+  
+  // Daily.dev style: top posts of the day featured prominently
+  const featured = useMemo(() => allNews.slice(0, 2), [allNews]);
+  const feed = useMemo(() => allNews.slice(2), [allNews]);
 
   return (
     <div className="home" id="home-page">
@@ -35,15 +40,9 @@ export default function HomePage() {
           </svg>
           Popular
         </button>
-        <button className="home__toolbar-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-          </svg>
-          Best Discussions
-        </button>
         <div className="home__toolbar-spacer"></div>
         <span className="home__toolbar-count">
-          {news.length} posts
+          {allNews.length} posts
         </span>
       </div>
 
@@ -57,7 +56,23 @@ export default function HomePage() {
       {/* Content */}
       <div className="home__content">
         <div className="home__feed">
-          <NewsList articles={news} />
+          {/* Featured Row */}
+          {activeCategory === 'all' && featured.length > 0 && (
+            <div className="home__featured">
+              <h2 className="home__section-title">✨ Featured for you</h2>
+              <div className="home__featured-grid">
+                {featured.map(article => (
+                  <NewsCard key={article.id} article={article} />
+                ))}
+              </div>
+              <div className="home__divider"></div>
+            </div>
+          )}
+
+          <NewsList 
+            articles={activeCategory === 'all' ? feed : allNews} 
+            title={activeCategory !== 'all' ? CATEGORIES.find(c => c.slug === activeCategory)?.name : "Latest Feed"}
+          />
         </div>
         <aside className="home__sidebar">
           <TrendingWidget />

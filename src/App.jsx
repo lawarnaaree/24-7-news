@@ -10,6 +10,7 @@ import NewsDetailPage from './pages/NewsDetailPage';
 import ArticlesHub from './pages/ArticlesHub';
 import ArticleDetailPage from './pages/ArticleDetailPage';
 import SearchResultsPage from './pages/SearchResultsPage';
+import BookmarksPage from './pages/BookmarksPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 export default function App() {
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="articles" element={<ArticlesHub />} />
           <Route path="articles/:id" element={<ArticleDetailPage />} />
           <Route path="search" element={<SearchResultsPage />} />
+          <Route path="bookmarks" element={<BookmarksPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
