@@ -31,6 +31,12 @@
   --accent-primary: #58a6ff;
   --accent-primary-hover: #79c0ff;
   --accent-primary-soft: rgba(56, 139, 253, 0.15);
+  --accent-blue: #58a6ff;
+  --accent-green: #3fb950;
+  --accent-red: #f85149;
+  --accent-amber: #d29922;
+  --accent-purple: #bc8cff;
+  --accent-cyan: #39d2c0;
   --accent-avocado: #3fb950;
   --accent-avocado-soft: rgba(63, 185, 80, 0.15);
   --accent-cheese: #d29922;
@@ -85,10 +91,10 @@
   /* Layout Dimensions */
   --header-height: 48px;
   --ticker-height: 32px;
-  --sidebar-width: 240px;
+  --sidebar-width: 220px;
   --sidebar-width-collapsed: 60px;
   --feed-max-width: 1200px;
-  --card-gap: 12px;
+  --card-gap: 16px;
 
   /* Z-index */
   --z-sidebar: 100;

@@ -1,119 +1,115 @@
 /* ============================================
-   HomePage Styles — daily.dev feed layout
+   HomePage Styles — Complete, synced with JSX
    ============================================ */
 
-.home {
-  padding-top: 12px;
+.home-page {
   animation: fadeIn 0.25s ease;
 }
 
-/* ── Toolbar ──────────────────────────── */
-.home__toolbar {
+/* ── Feed Header (My Feed / Popular tabs) ── */
+.feed-header {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 6px 0;
+  justify-content: space-between;
+  padding: 16px 0 12px;
   margin-bottom: 4px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  border-bottom: 1px solid var(--border-primary);
 }
 
-.home__toolbar::-webkit-scrollbar {
-  display: none;
+.feed-header__tabs {
+  display: flex;
+  gap: 24px;
 }
 
-.home__toolbar-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 14px;
-  border-radius: var(--radius-md);
+.feed-header__tab {
+  background: transparent;
+  color: var(--text-muted);
   font-size: var(--text-sm);
-  font-weight: 500;
-  color: var(--text-tertiary);
-  white-space: nowrap;
-  transition: all var(--transition-normal);
-  cursor: pointer;
-  border: 1px solid transparent;
-}
-
-.home__toolbar-btn:hover {
-  color: var(--text-primary);
-  background: var(--bg-tag);
-}
-
-.home__toolbar-btn--active {
-  color: var(--text-primary);
-  background: var(--bg-card);
-  border-color: var(--border-card);
   font-weight: 600;
+  padding: 8px 0;
+  position: relative;
+  transition: color 0.2s ease;
 }
 
-.home__toolbar-spacer {
-  flex: 1;
+.feed-header__tab:hover {
+  color: var(--text-primary);
 }
 
-.home__toolbar-count {
+.feed-header__tab--active {
+  color: var(--accent-blue);
+}
+
+.feed-header__tab--active::after {
+  content: '';
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent-blue);
+  border-radius: 2px;
+}
+
+.feed-header__msg {
   font-size: var(--text-xs);
   color: var(--text-muted);
-  white-space: nowrap;
-  padding-right: 4px;
 }
 
-/* ── Content Layout ──────────────────── */
-.home__content {
+/* ── Main 2-column layout (feed + sidebar widget) ── */
+.feed-grid {
   display: grid;
-  grid-template-columns: 1fr 300px;
-  gap: 16px;
+  grid-template-columns: 1fr 320px;
+  gap: 32px;
+  margin-top: 16px;
   align-items: start;
 }
 
-.home__feed {
+.feed-grid__main {
   min-width: 0;
 }
 
-.home__sidebar {
+.feed-grid__sidebar {
   position: sticky;
-  top: calc(var(--header-height) + 44px);
+  top: calc(var(--header-height) + var(--ticker-height) + 24px);
 }
 
-/* ── Featured Section ──────────────────── */
-.home__section-title {
+/* ── Featured + Latest sections ──────── */
+.featured-section {
+  margin-bottom: 32px;
+}
+
+.feed-section {
+  margin-bottom: 32px;
+}
+
+.section-label {
   font-size: var(--text-base);
   font-weight: 800;
-  color: var(--text-primary);
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
-.home__featured-grid {
+.featured-row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--card-gap);
-  margin-bottom: 24px;
-}
-
-.home__divider {
-  height: 1px;
-  background: var(--border-primary);
-  margin: 24px 0;
 }
 
 /* ── Responsive ──────────────────────── */
 @media (max-width: 1100px) {
-  .home__content {
+  .feed-grid {
     grid-template-columns: 1fr;
   }
 
-  .home__sidebar {
+  .feed-grid__sidebar {
     position: static;
   }
 }
 
-@media (max-width: 600px) {
-  .home {
-    padding-top: 8px;
+@media (max-width: 768px) {
+  .featured-row {
+    grid-template-columns: 1fr;
   }
 }

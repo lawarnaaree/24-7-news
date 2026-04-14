@@ -1,5 +1,5 @@
 /* ============================================
-   NewsList — Card feed grid (daily.dev style)
+   NewsList — Card feed grid (minimalist)
    No section headers — clean grid
    ============================================ */
 
@@ -10,7 +10,6 @@ export default function NewsList({ articles, title, subtitle, variant = 'default
   if (!articles || articles.length === 0) {
     return (
       <div className="feed-empty">
-        <span className="feed-empty__icon">📭</span>
         <h3 className="feed-empty__title">No posts found</h3>
         <p className="feed-empty__text">Try a different filter or check back later.</p>
       </div>
@@ -25,7 +24,7 @@ export default function NewsList({ articles, title, subtitle, variant = 'default
           {subtitle && <p className="feed-list__subtitle">{subtitle}</p>}
         </div>
       )}
-      <div className={`feed-grid ${variant === 'compact' ? 'feed-grid--compact' : ''} stagger-children`}>
+      <div className={`news-grid ${variant === 'compact' ? 'news-grid--compact' : ''} stagger-children`}>
         {articles.map((article) => (
           <NewsCard key={article.id} article={article} variant={variant} />
         ))}

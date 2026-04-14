@@ -58,11 +58,11 @@ export default function ArticleDetailPage() {
 
       <article className="article-detail__card">
         <div className="article-detail__head">
-          {category && <span className="article-detail__cat">{category.icon} {category.name}</span>}
+          {category && <span className="article-detail__cat">{category.name}</span>}
           <h1 className="article-detail__title">{article.title}</h1>
           <p className="article-detail__summary">{article.summary}</p>
           <div className="article-detail__meta">
-            <span>📖 {article.readTime}</span>
+            <span>{article.readTime}</span>
             <span>Updated {formatDate(article.lastUpdated)}</span>
           </div>
         </div>

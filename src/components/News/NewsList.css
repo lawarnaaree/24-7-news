@@ -1,5 +1,5 @@
 /* ============================================
-   NewsList / Feed Grid
+   NewsList / News Grid — synced with JSX
    ============================================ */
 
 .feed-list {
@@ -22,14 +22,14 @@
   margin-top: 2px;
 }
 
-/* ── Grid ──────────────────────────── */
-.feed-grid {
+/* ── News Grid (used inside NewsList) ─── */
+.news-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--card-gap);
 }
 
-.feed-grid--compact {
+.news-grid--compact {
   grid-template-columns: 1fr;
   gap: 8px;
 }
@@ -39,14 +39,8 @@
   text-align: center;
   padding: 60px 20px;
   background: var(--bg-card);
-  border: 1px solid var(--border-card);
+  border: 1px dashed var(--border-card);
   border-radius: var(--radius-lg);
-}
-
-.feed-empty__icon {
-  font-size: 2.5rem;
-  display: block;
-  margin-bottom: 10px;
 }
 
 .feed-empty__title {
@@ -61,13 +55,13 @@
 
 /* ── Responsive ──────────────────── */
 @media (max-width: 1024px) {
-  .feed-grid {
+  .news-grid {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
 @media (max-width: 600px) {
-  .feed-grid {
+  .news-grid {
     grid-template-columns: 1fr;
   }
 }

@@ -1,5 +1,5 @@
 /* ============================================
-   Layout — Sidebar + Header + Content (daily.dev)
+   Layout — Sidebar + Header + Content shell
    ============================================ */
 
 import { useState, useEffect } from 'react';
@@ -20,11 +20,12 @@ export default function Layout() {
 
   return (
     <div className="app-layout">
+      {/* Fixed elements: Ticker → Header → Sidebar */}
+      <BreakingTicker />
       <Navbar
         onMobileMenuToggle={() => setMobileMenuOpen(!mobileMenuOpen)}
         mobileMenuOpen={mobileMenuOpen}
       />
-
       <Sidebar />
 
       {/* Mobile sidebar overlay */}
@@ -42,8 +43,8 @@ export default function Layout() {
         </div>
       )}
 
+      {/* Scrollable content area */}
       <div className="app-content">
-        <BreakingTicker />
         <main className="main-feed">
           <Outlet />
         </main>
