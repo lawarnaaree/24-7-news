@@ -66,11 +66,20 @@
 
 .feed-grid__main {
   min-width: 0;
+  overflow: hidden;
 }
 
 .feed-grid__sidebar {
   position: sticky;
   top: calc(var(--header-height) + var(--ticker-height) + 24px);
+  max-height: calc(100vh - var(--header-height) - var(--ticker-height) - 48px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+
+.feed-grid__sidebar::-webkit-scrollbar {
+  display: none;
 }
 
 /* ── Featured + Latest sections ──────── */
