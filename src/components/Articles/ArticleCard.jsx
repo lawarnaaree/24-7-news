@@ -12,7 +12,6 @@ export default function ArticleCard({ article }) {
   return (
     <article className="article-card" id={`article-card-${article.id}`}>
       <div className="article-card__header">
-        <span className="article-card__cat-icon">{category?.icon || '📄'}</span>
         <span className="article-card__cat-name">{category?.name}</span>
         <span className="article-card__read-time">{article.readTime}</span>
       </div>

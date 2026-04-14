@@ -33,7 +33,6 @@ export default function NewsCard({ article, variant = 'default' }) {
       {/* Card Header: Source */}
       <div className="feed-card__header">
         <div className="feed-card__source">
-          <span className="feed-card__source-icon">{source?.logo}</span>
           <span className="feed-card__source-name">{source?.name}</span>
         </div>
         {article.isBreaking && (

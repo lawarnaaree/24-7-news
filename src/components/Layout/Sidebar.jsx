@@ -8,21 +8,21 @@ import { CATEGORIES } from '../../utils/constants';
 import './Sidebar.css';
 
 const mainNav = [
-  { to: '/', label: 'My Feed', icon: '🏠' },
-  { to: '/category/nepal', label: 'Nepal', icon: '🇳🇵' },
-  { to: '/category/world', label: 'World', icon: '🌍' },
-  { to: '/articles', label: 'Knowledge Hub', icon: '📚' },
+  { to: '/', label: 'My Feed' },
+  { to: '/category/nepal', label: 'Nepal' },
+  { to: '/category/world', label: 'World' },
+  { to: '/articles', label: 'Knowledge Hub' },
 ];
 
 const discoverNav = [
-  { to: '/category/politics', label: 'Politics', icon: '🏛️' },
-  { to: '/category/geopolitics', label: 'Geopolitics', icon: '⚔️' },
-  { to: '/category/sports', label: 'Sports', icon: '⚽' },
-  { to: '/category/technology', label: 'Technology', icon: '💻' },
-  { to: '/category/business', label: 'Business', icon: '📈' },
-  { to: '/category/science', label: 'Science', icon: '🔬' },
-  { to: '/category/health', label: 'Health', icon: '🏥' },
-  { to: '/category/entertainment', label: 'Entertainment', icon: '🎬' },
+  { to: '/category/politics', label: 'Politics' },
+  { to: '/category/geopolitics', label: 'Geopolitics' },
+  { to: '/category/sports', label: 'Sports' },
+  { to: '/category/technology', label: 'Technology' },
+  { to: '/category/business', label: 'Business' },
+  { to: '/category/science', label: 'Science' },
+  { to: '/category/health', label: 'Health' },
+  { to: '/category/entertainment', label: 'Entertainment' },
 ];
 
 export default function Sidebar() {
@@ -46,7 +46,6 @@ export default function Sidebar() {
               to={item.to}
               className={`sidebar__link ${isActive(item.to) ? 'sidebar__link--active' : ''}`}
             >
-              <span className="sidebar__link-icon">{item.icon}</span>
               <span className="sidebar__link-label">{item.label}</span>
             </Link>
           ))}
@@ -75,7 +74,6 @@ export default function Sidebar() {
                   to={item.to}
                   className={`sidebar__link ${isActive(item.to) ? 'sidebar__link--active' : ''}`}
                 >
-                  <span className="sidebar__link-icon">{item.icon}</span>
                   <span className="sidebar__link-label">{item.label}</span>
                 </Link>
               ))}
@@ -93,14 +91,12 @@ export default function Sidebar() {
             to="/bookmarks"
             className={`sidebar__link ${isActive('/bookmarks') ? 'sidebar__link--active' : ''}`}
           >
-            <span className="sidebar__link-icon">🔖</span>
             <span className="sidebar__link-label">Bookmarks</span>
           </Link>
           <Link
             to="/search?q=trending"
             className="sidebar__link"
           >
-            <span className="sidebar__link-icon">🔥</span>
             <span className="sidebar__link-label">Trending</span>
           </Link>
         </nav>

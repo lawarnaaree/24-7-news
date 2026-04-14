@@ -15,7 +15,6 @@ export default function CategoryPill({ categories, activeCategory, onCategoryCha
           role="tab"
           aria-selected={activeCategory === cat.slug}
         >
-          <span className="feed-tab__icon">{cat.icon}</span>
           <span className="feed-tab__label">{cat.name}</span>
         </button>
       ))}
