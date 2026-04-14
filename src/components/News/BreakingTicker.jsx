@@ -16,7 +16,6 @@ export default function BreakingTicker() {
   return (
     <div className="ticker" id="breaking-ticker">
       <div className="ticker__badge">
-        <span className="ticker__dot"></span>
         LIVE
       </div>
       <div className="ticker__track">

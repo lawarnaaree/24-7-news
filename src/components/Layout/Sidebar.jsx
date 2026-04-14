@@ -1,10 +1,9 @@
 /* ============================================
-   Sidebar — Left navigation (daily.dev style)
+   Sidebar — Minimalist text-only navigation
    ============================================ */
 
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { CATEGORIES } from '../../utils/constants';
 import './Sidebar.css';
 
 const mainNav = [
@@ -37,7 +36,6 @@ export default function Sidebar() {
   return (
     <aside className="sidebar" id="main-sidebar">
       <div className="sidebar__inner">
-        {/* Main Navigation */}
         <nav className="sidebar__nav" aria-label="Main navigation">
           <div className="sidebar__section-label">Menu</div>
           {mainNav.map((item) => (
@@ -51,19 +49,14 @@ export default function Sidebar() {
           ))}
         </nav>
 
-        {/* Divider */}
         <div className="sidebar__divider"></div>
 
-        {/* Discover / Categories */}
         <nav className="sidebar__nav" aria-label="Categories">
           <button
             className="sidebar__section-toggle"
             onClick={() => setDiscoverOpen(!discoverOpen)}
           >
             <span className="sidebar__section-label">Discover</span>
-            <span className={`sidebar__chevron ${discoverOpen ? 'sidebar__chevron--open' : ''}`}>
-              ›
-            </span>
           </button>
 
           {discoverOpen && (
@@ -81,10 +74,8 @@ export default function Sidebar() {
           )}
         </nav>
 
-        {/* Divider */}
         <div className="sidebar__divider"></div>
 
-        {/* Bookmarks / Saved section placeholder */}
         <nav className="sidebar__nav">
           <div className="sidebar__section-label">Saved</div>
           <Link

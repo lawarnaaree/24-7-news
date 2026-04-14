@@ -1,6 +1,5 @@
 /* ============================================
-   HomePage — Flat card-feed (daily.dev style)
-   Feed settings bar + category tabs + card grid
+   HomePage — text-only feed controls
    ============================================ */
 
 import { useState, useMemo } from 'react';
@@ -14,67 +13,71 @@ import './HomePage.css';
 
 export default function HomePage() {
   const [activeCategory, setActiveCategory] = useState('all');
+  const [activeTab, setActiveTab] = useState('feed'); // 'feed' or 'popular'
 
-  const allNews = useMemo(() => getNewsByCategory(activeCategory), [activeCategory]);
-  
-  // Daily.dev style: top posts of the day featured prominently
-  const featured = useMemo(() => allNews.slice(0, 2), [allNews]);
-  const feed = useMemo(() => allNews.slice(2), [allNews]);
+  const filteredNews = useMemo(() => {
+    return getNewsByCategory(activeCategory);
+  }, [activeCategory]);
+
+  const featuredNews = useMemo(() => {
+    return filteredNews.slice(0, 2);
+  }, [filteredNews]);
+
+  const remainingNews = useMemo(() => {
+    return filteredNews.slice(2);
+  }, [filteredNews]);
 
   return (
-    <div className="home" id="home-page">
-      {/* Feed Settings Bar */}
-      <div className="home__toolbar">
-        <button className="home__toolbar-btn home__toolbar-btn--active">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" />
-          </svg>
-          My Feed
-        </button>
-        <button className="home__toolbar-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="2" y1="12" x2="22" y2="12" />
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-          </svg>
-          Popular
-        </button>
-        <div className="home__toolbar-spacer"></div>
-        <span className="home__toolbar-count">
-          {allNews.length} posts
-        </span>
+    <div className="home-page">
+      {/* Feed Tabs Bar */}
+      <div className="feed-header">
+        <div className="feed-header__tabs">
+          <button 
+            className={`feed-header__tab ${activeTab === 'feed' ? 'feed-header__tab--active' : ''}`}
+            onClick={() => setActiveTab('feed')}
+          >
+            My Feed
+          </button>
+          <button 
+            className={`feed-header__tab ${activeTab === 'popular' ? 'feed-header__tab--active' : ''}`}
+            onClick={() => setActiveTab('popular')}
+          >
+            Popular
+          </button>
+        </div>
+        <div className="feed-header__msg">
+          {filteredNews.length} articles
+        </div>
       </div>
 
-      {/* Category Tabs */}
-      <CategoryPill
-        categories={CATEGORIES}
-        activeCategory={activeCategory}
-        onCategoryChange={setActiveCategory}
+      {/* Category Filter Pills */}
+      <CategoryPill 
+        categories={CATEGORIES} 
+        activeCategory={activeCategory} 
+        onCategoryChange={setActiveCategory} 
       />
 
-      {/* Content */}
-      <div className="home__content">
-        <div className="home__feed">
+      <div className="feed-grid">
+        <div className="feed-grid__main">
           {/* Featured Row */}
-          {activeCategory === 'all' && featured.length > 0 && (
-            <div className="home__featured">
-              <h2 className="home__section-title">✨ Featured for you</h2>
-              <div className="home__featured-grid">
-                {featured.map(article => (
-                  <NewsCard key={article.id} article={article} />
-                ))}
-              </div>
-              <div className="home__divider"></div>
+          <section className="featured-section">
+            <h2 className="section-label">Featured</h2>
+            <div className="featured-row">
+              {featuredNews.map(article => (
+                <NewsCard key={article.id} article={article} />
+              ))}
             </div>
-          )}
+          </section>
 
-          <NewsList 
-            articles={activeCategory === 'all' ? feed : allNews} 
-            title={activeCategory !== 'all' ? CATEGORIES.find(c => c.slug === activeCategory)?.name : "Latest Feed"}
-          />
+          {/* Regular Feed */}
+          <section className="feed-section">
+            <h2 className="section-label">Latest Feed</h2>
+            <NewsList articles={remainingNews} />
+          </section>
         </div>
-        <aside className="home__sidebar">
+
+        {/* Sidebar Widgets */}
+        <aside className="feed-grid__sidebar">
           <TrendingWidget />
         </aside>
       </div>

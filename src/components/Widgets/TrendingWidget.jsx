@@ -1,28 +1,36 @@
 /* ============================================
-   TrendingWidget — Sidebar-style trending
+   TrendingWidget — Text-only sidebar widget
    ============================================ */
 
 import { Link } from 'react-router-dom';
-import { getTrendingNews } from '../../data/mockNews';
-import { SOURCES } from '../../utils/constants';
+import { getNewsByCategory } from '../../data/mockNews';
 import { timeAgo } from '../../utils/formatDate';
 import './TrendingWidget.css';
 
 export default function TrendingWidget() {
-  const trending = getTrendingNews(5);
+  const trendingItems = getNewsByCategory('all').slice(0, 5);
 
   return (
-    <div className="trending" id="trending-widget">
-      <h3 className="trending__title">🔥 Trending</h3>
-      <div className="trending__list">
-        {trending.map((news, i) => (
-          <Link to={`/news/${news.id}`} key={news.id} className="trending__item">
-            <span className="trending__rank">{i + 1}</span>
-            <div className="trending__content">
-              <h4 className="trending__headline">{news.title}</h4>
-              <span className="trending__meta">
-                {SOURCES[news.source]?.name} · {timeAgo(news.publishedAt)}
-              </span>
+    <div className="trending-widget" id="trending-widget">
+      <div className="trending-widget__header">
+        <h3 className="trending-widget__title">Trending</h3>
+      </div>
+
+      <div className="trending-widget__list">
+        {trendingItems.map((article, index) => (
+          <Link 
+            key={article.id} 
+            to={`/news/${article.id}`} 
+            className="trending-item"
+          >
+            <span className="trending-item__rank">{index + 1}</span>
+            <div className="trending-item__content">
+              <h4 className="trending-item__title">{article.title}</h4>
+              <div className="trending-item__meta">
+                <span>{article.source.replace('-', ' ')}</span>
+                <span>·</span>
+                <span>{timeAgo(article.publishedAt)}</span>
+              </div>
             </div>
           </Link>
         ))}
