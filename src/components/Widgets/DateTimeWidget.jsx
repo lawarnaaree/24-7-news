@@ -1,5 +1,5 @@
 /* ============================================
-   DateTimeWidget — Live clock display
+   DateTimeWidget — Live clock
    ============================================ */
 
 import { useState, useEffect } from 'react';
@@ -10,16 +10,14 @@ export default function DateTimeWidget() {
   const [clock, setClock] = useState(getCurrentTime());
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setClock(getCurrentTime());
-    }, 1000);
+    const interval = setInterval(() => setClock(getCurrentTime()), 1000);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="datetime-widget" id="datetime-widget">
-      <div className="datetime-widget__time">{clock.time}</div>
-      <div className="datetime-widget__date">{clock.date}</div>
+    <div className="clock-widget" id="datetime-widget">
+      <div className="clock-widget__time">{clock.time}</div>
+      <div className="clock-widget__date">{clock.date}</div>
     </div>
   );
 }

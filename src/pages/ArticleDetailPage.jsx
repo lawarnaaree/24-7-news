@@ -1,5 +1,5 @@
 /* ============================================
-   ArticleDetailPage — Full article reader
+   ArticleDetailPage — Knowledge article reader
    ============================================ */
 
 import { useParams, Link } from 'react-router-dom';
@@ -15,11 +15,10 @@ export default function ArticleDetailPage() {
 
   if (!article) {
     return (
-      <div className="article-detail container">
-        <div className="article-detail__not-found">
+      <div className="article-detail">
+        <div className="detail__empty">
           <h2>Article not found</h2>
-          <p>The article you&apos;re looking for doesn&apos;t exist.</p>
-          <Link to="/articles" className="article-detail__back-btn">← Back to Articles</Link>
+          <Link to="/articles" className="detail__back">← Back to Articles</Link>
         </div>
       </div>
     );
@@ -28,109 +27,67 @@ export default function ArticleDetailPage() {
   const category = ARTICLE_CATEGORIES.find((c) => c.slug === article.category);
   const related = getRelatedArticles(article.id, 3);
 
-  // Convert markdown-like headings and paragraphs to HTML
   const renderContent = (content) => {
     return content.split('\n\n').map((block, i) => {
-      if (block.startsWith('## ')) {
-        return <h2 key={i} className="article-detail__h2">{block.replace('## ', '')}</h2>;
-      }
-      if (block.startsWith('### ')) {
-        return <h3 key={i} className="article-detail__h3">{block.replace('### ', '')}</h3>;
-      }
+      if (block.startsWith('## ')) return <h2 key={i} className="article-detail__h2">{block.replace('## ', '')}</h2>;
+      if (block.startsWith('### ')) return <h3 key={i} className="article-detail__h3">{block.replace('### ', '')}</h3>;
       if (block.startsWith('- ')) {
         const items = block.split('\n').filter((l) => l.startsWith('- '));
         return (
           <ul key={i} className="article-detail__list">
             {items.map((item, j) => {
               const text = item.replace('- ', '');
-              // Handle **bold** markers
               const parts = text.split(/\*\*(.*?)\*\*/g);
-              return (
-                <li key={j}>
-                  {parts.map((part, k) =>
-                    k % 2 === 1 ? <strong key={k}>{part}</strong> : part
-                  )}
-                </li>
-              );
+              return <li key={j}>{parts.map((p, k) => k % 2 === 1 ? <strong key={k}>{p}</strong> : p)}</li>;
             })}
           </ul>
         );
       }
-      // Regular paragraph
       const parts = block.split(/\*\*(.*?)\*\*/g);
-      return (
-        <p key={i} className="article-detail__paragraph">
-          {parts.map((part, k) =>
-            k % 2 === 1 ? <strong key={k}>{part}</strong> : part
-          )}
-        </p>
-      );
+      return <p key={i} className="article-detail__p">{parts.map((p, k) => k % 2 === 1 ? <strong key={k}>{p}</strong> : p)}</p>;
     });
   };
 
   return (
-    <div className="article-detail container" id="article-detail-page">
-      {/* Breadcrumb */}
-      <nav className="article-detail__breadcrumb animate-fade-in">
-        <Link to="/">Home</Link>
-        <span>/</span>
-        <Link to="/articles">Articles</Link>
-        <span>/</span>
-        <span className="article-detail__breadcrumb-current">{article.title}</span>
+    <div className="article-detail" id="article-detail-page">
+      <nav className="detail__breadcrumb">
+        <Link to="/">Feed</Link><span>›</span>
+        <Link to="/articles">Articles</Link><span>›</span>
+        <span className="detail__breadcrumb-current">{article.title}</span>
       </nav>
 
-      <article className="article-detail__content animate-fade-in-up">
-        {/* Header */}
-        <header className="article-detail__header">
-          {category && (
-            <span className="article-detail__category">
-              {category.icon} {category.name}
-            </span>
-          )}
+      <article className="article-detail__card">
+        <div className="article-detail__head">
+          {category && <span className="article-detail__cat">{category.icon} {category.name}</span>}
           <h1 className="article-detail__title">{article.title}</h1>
           <p className="article-detail__summary">{article.summary}</p>
-
           <div className="article-detail__meta">
-            <span className="article-detail__read-time">📖 {article.readTime}</span>
-            <span className="article-detail__updated">Updated {formatDate(article.lastUpdated)}</span>
+            <span>📖 {article.readTime}</span>
+            <span>Updated {formatDate(article.lastUpdated)}</span>
           </div>
-        </header>
+        </div>
 
-        {/* Hero Image */}
-        <div className="article-detail__hero-img">
+        <div className="article-detail__img">
           <img src={article.thumbnail} alt={article.title} />
         </div>
 
-        {/* Body */}
-        <div className="article-detail__body">
-          {renderContent(article.content)}
-        </div>
+        <div className="article-detail__body">{renderContent(article.content)}</div>
 
-        {/* Tags */}
-        <div className="article-detail__tags">
-          <h4 className="article-detail__tags-title">Related Topics</h4>
-          <div className="article-detail__tags-list">
+        <div className="article-detail__topics">
+          <h4 className="article-detail__topics-title">Related Topics</h4>
+          <div className="article-detail__topics-list">
             {article.relatedTopics.map((topic) => (
-              <Link
-                key={topic}
-                to={`/search?q=${encodeURIComponent(topic)}`}
-                className="article-detail__tag"
-              >
-                {topic}
-              </Link>
+              <Link key={topic} to={`/search?q=${encodeURIComponent(topic)}`} className="feed-card__tag">#{topic.toLowerCase().replace(/\s+/g, '-')}</Link>
             ))}
           </div>
         </div>
       </article>
 
-      {/* Related Articles */}
       {related.length > 0 && (
         <section className="article-detail__related">
           <h3 className="article-detail__related-title">Related Articles</h3>
           <div className="article-detail__related-grid">
-            {related.map((a) => (
-              <ArticleCard key={a.id} article={a} />
-            ))}
+            {related.map((a) => <ArticleCard key={a.id} article={a} />)}
           </div>
         </section>
       )}

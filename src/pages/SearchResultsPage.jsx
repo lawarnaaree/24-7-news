@@ -1,5 +1,5 @@
 /* ============================================
-   SearchResultsPage — Unified search results
+   SearchResultsPage — daily.dev style
    ============================================ */
 
 import { useMemo } from 'react';
@@ -16,53 +16,37 @@ export default function SearchResultsPage() {
 
   const newsResults = useMemo(() => searchNews(query), [query]);
   const articleResults = useMemo(() => searchArticles(query), [query]);
-
-  const totalResults = newsResults.length + articleResults.length;
+  const total = newsResults.length + articleResults.length;
 
   return (
-    <div className="search-results container" id="search-results-page">
-      <div className="search-results__header animate-fade-in-up">
-        <h1 className="search-results__title">
-          Search Results
-        </h1>
-        <p className="search-results__query">
-          {totalResults} result{totalResults !== 1 ? 's' : ''} for &quot;<strong>{query}</strong>&quot;
-        </p>
+    <div className="search-page" id="search-results-page">
+      <div className="search-page__header">
+        <h1 className="search-page__title">Search Results</h1>
+        <p className="search-page__info">{total} result{total !== 1 ? 's' : ''} for "<strong>{query}</strong>"</p>
       </div>
 
-      {totalResults === 0 ? (
-        <div className="search-results__empty">
-          <span className="search-results__empty-icon">🔎</span>
-          <h3>No results found</h3>
-          <p>Try different keywords or browse categories.</p>
-          <Link to="/" className="search-results__home-btn">← Back to Home</Link>
+      {total === 0 ? (
+        <div className="feed-empty">
+          <span className="feed-empty__icon">🔎</span>
+          <h3 className="feed-empty__title">No results found</h3>
+          <p className="feed-empty__text">Try different keywords.</p>
+          <Link to="/" className="detail__back" style={{ marginTop: '12px', display: 'inline-block' }}>← Back to Feed</Link>
         </div>
       ) : (
-        <div className="search-results__sections">
-          {/* News Results */}
+        <div className="search-page__sections">
           {newsResults.length > 0 && (
-            <section className="search-results__section">
-              <h2 className="search-results__section-title">
-                📰 News <span className="search-results__section-count">({newsResults.length})</span>
-              </h2>
-              <div className="search-results__news-grid stagger-children">
-                {newsResults.map((article) => (
-                  <NewsCard key={article.id} article={article} />
-                ))}
+            <section>
+              <h2 className="search-page__section-title">📰 News ({newsResults.length})</h2>
+              <div className="feed-grid stagger-children">
+                {newsResults.map((a) => <NewsCard key={a.id} article={a} />)}
               </div>
             </section>
           )}
-
-          {/* Article Results */}
           {articleResults.length > 0 && (
-            <section className="search-results__section">
-              <h2 className="search-results__section-title">
-                📚 Articles <span className="search-results__section-count">({articleResults.length})</span>
-              </h2>
-              <div className="search-results__articles-grid stagger-children">
-                {articleResults.map((article) => (
-                  <ArticleCard key={article.id} article={article} />
-                ))}
+            <section>
+              <h2 className="search-page__section-title">📚 Articles ({articleResults.length})</h2>
+              <div className="feed-grid stagger-children">
+                {articleResults.map((a) => <ArticleCard key={a.id} article={a} />)}
               </div>
             </section>
           )}

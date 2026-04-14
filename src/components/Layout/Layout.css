@@ -1,0 +1,66 @@
+/* ============================================
+   Layout Styles — App shell for sidebar layout
+   ============================================ */
+
+/* ── App shell ──────────────────────────── */
+.app-layout {
+  min-height: 100vh;
+}
+
+.app-content {
+  margin-left: var(--sidebar-width);
+  padding-top: var(--header-height);
+  min-height: 100vh;
+}
+
+.main-feed {
+  max-width: var(--feed-max-width);
+  margin: 0 auto;
+  padding: 0 16px 48px;
+}
+
+/* ── Mobile sidebar overlay ──────────── */
+.mobile-sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: var(--bg-overlay);
+  z-index: calc(var(--z-header) + 10);
+  animation: fadeIn 0.2s ease;
+}
+
+.mobile-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-primary);
+  animation: slideInLeft 0.25s ease;
+  overflow-y: auto;
+}
+
+/* Override sidebar fixed positioning when inside mobile overlay */
+.mobile-sidebar .sidebar {
+  position: static;
+  width: 100%;
+  height: 100%;
+  top: auto;
+  padding-top: 16px;
+}
+
+/* ── Responsive ──────────────────────── */
+@media (max-width: 768px) {
+  .app-content {
+    margin-left: 0;
+  }
+
+  .mobile-sidebar-overlay {
+    display: block;
+  }
+
+  .main-feed {
+    padding: 0 12px 48px;
+  }
+}

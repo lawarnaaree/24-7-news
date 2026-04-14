@@ -1,11 +1,11 @@
 /* ============================================
-   ArticlesHub — Wikipedia-style knowledge section
+   ArticlesHub — Knowledge section (daily.dev style)
    ============================================ */
 
 import { useState, useMemo } from 'react';
 import ArticleCard from '../components/Articles/ArticleCard';
 import { ARTICLE_CATEGORIES } from '../utils/constants';
-import mockArticles, { getArticlesByCategory, searchArticles } from '../data/mockArticles';
+import { getArticlesByCategory, searchArticles } from '../data/mockArticles';
 import './ArticlesHub.css';
 
 export default function ArticlesHub() {
@@ -13,79 +13,54 @@ export default function ArticlesHub() {
   const [searchQuery, setSearchQuery] = useState('');
 
   const articles = useMemo(() => {
-    if (searchQuery.trim()) {
-      return searchArticles(searchQuery);
-    }
+    if (searchQuery.trim()) return searchArticles(searchQuery);
     return getArticlesByCategory(activeCategory);
   }, [activeCategory, searchQuery]);
 
   return (
-    <div className="articles-hub container" id="articles-hub">
+    <div className="articles-hub" id="articles-hub">
       {/* Header */}
-      <div className="articles-hub__header animate-fade-in-up">
-        <div className="articles-hub__header-text">
-          <h1 className="articles-hub__title">
-            <span className="articles-hub__title-icon">📚</span>
-            Knowledge Hub
-          </h1>
-          <p className="articles-hub__subtitle">
-            Explore in-depth articles on science, history, technology, culture, and more — powered by curated knowledge.
-          </p>
+      <div className="articles-hub__header">
+        <div className="articles-hub__header-left">
+          <h1 className="articles-hub__title">📚 Knowledge Hub</h1>
+          <p className="articles-hub__desc">In-depth articles on science, history, tech & more</p>
         </div>
-
-        {/* Search */}
-        <div className="articles-hub__search-wrap">
-          <span className="articles-hub__search-icon">🔍</span>
+        <div className="articles-hub__search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
+          </svg>
           <input
             type="text"
             placeholder="Search articles..."
             value={searchQuery}
-            onChange={(e) => {
-              setSearchQuery(e.target.value);
-              if (e.target.value) setActiveCategory('all');
-            }}
+            onChange={(e) => { setSearchQuery(e.target.value); if (e.target.value) setActiveCategory('all'); }}
             className="articles-hub__search-input"
-            id="articles-search"
           />
           {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="articles-hub__search-clear"
-              aria-label="Clear search"
-            >
-              ✕
-            </button>
+            <button onClick={() => setSearchQuery('')} className="articles-hub__search-clear">✕</button>
           )}
         </div>
       </div>
 
       {/* Category Tabs */}
-      <div className="articles-hub__categories">
+      <div className="articles-hub__tabs">
         <button
-          className={`articles-hub__cat-btn ${activeCategory === 'all' ? 'articles-hub__cat-btn--active' : ''}`}
+          className={`feed-tab ${activeCategory === 'all' ? 'feed-tab--active' : ''}`}
           onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
-        >
-          🌐 All
-        </button>
+        >🌐 All</button>
         {ARTICLE_CATEGORIES.map((cat) => (
           <button
             key={cat.slug}
-            className={`articles-hub__cat-btn ${activeCategory === cat.slug ? 'articles-hub__cat-btn--active' : ''}`}
+            className={`feed-tab ${activeCategory === cat.slug ? 'feed-tab--active' : ''}`}
             onClick={() => { setActiveCategory(cat.slug); setSearchQuery(''); }}
-          >
-            {cat.icon} {cat.name}
-          </button>
+          >{cat.icon} {cat.name}</button>
         ))}
       </div>
 
-      {/* Results */}
       {searchQuery && (
-        <p className="articles-hub__results-count">
-          {articles.length} result{articles.length !== 1 ? 's' : ''} for &quot;{searchQuery}&quot;
-        </p>
+        <p className="articles-hub__results">{articles.length} result{articles.length !== 1 ? 's' : ''} for "{searchQuery}"</p>
       )}
 
-      {/* Articles Grid */}
       {articles.length > 0 ? (
         <div className="articles-hub__grid stagger-children">
           {articles.map((article) => (
@@ -93,10 +68,10 @@ export default function ArticlesHub() {
           ))}
         </div>
       ) : (
-        <div className="articles-hub__empty">
-          <span className="articles-hub__empty-icon">🔎</span>
-          <h3>No articles found</h3>
-          <p>Try a different search term or browse another category.</p>
+        <div className="feed-empty">
+          <span className="feed-empty__icon">🔎</span>
+          <h3 className="feed-empty__title">No articles found</h3>
+          <p className="feed-empty__text">Try a different search or category.</p>
         </div>
       )}
     </div>
