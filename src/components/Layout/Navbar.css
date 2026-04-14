@@ -4,8 +4,8 @@
 
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
+  top: var(--ticker-height);
+  left: var(--sidebar-width);
   right: 0;
   height: var(--header-height);
   background: var(--bg-header);
@@ -208,12 +208,18 @@
 
 /* ── Responsive ──────────────────────── */
 @media (max-width: 768px) {
+  .header {
+    left: 0;
+    top: var(--ticker-height);
+  }
+
   .header__mobile-toggle {
     display: flex;
   }
 
   .header__left {
     min-width: auto;
+    padding-left: 8px;
   }
 
   .header__search-shortcut {

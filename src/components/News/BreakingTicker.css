@@ -3,12 +3,17 @@
    ============================================ */
 
 .ticker {
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
   display: flex;
   align-items: center;
-  background: var(--bg-surface);
+  background: var(--bg-body);
   border-bottom: 1px solid var(--border-primary);
-  height: 32px;
+  height: var(--ticker-height);
   overflow: hidden;
+  z-index: calc(var(--z-header) + 1);
 }
 
 .ticker__badge {
@@ -73,8 +78,14 @@
   font-size: 0.5rem;
 }
 
+@media (max-width: 768px) {
+  .ticker {
+    left: 0;
+  }
+}
+
 @media (max-width: 600px) {
   .ticker {
-    height: 28px;
+    height: var(--ticker-height);
   }
 }

@@ -4,13 +4,15 @@
 
 .sidebar {
   position: fixed;
-  top: var(--header-height);
+  top: 0;
   left: 0;
   bottom: 0;
   width: var(--sidebar-width);
   background: var(--bg-sidebar);
   border-right: 1px solid var(--border-primary);
-  z-index: var(--z-sidebar);
+  z-index: calc(var(--z-header) + 2);
+  display: flex;
+  flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-width: thin;
