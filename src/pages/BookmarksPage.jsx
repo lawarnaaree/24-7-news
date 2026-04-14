@@ -1,23 +1,22 @@
 /* ============================================
-   BookmarksPage — Showing "Saved" articles
+   BookmarksPage — Minimalist "Saved" articles
    ============================================ */
 
 import { useMemo } from 'react';
 import NewsList from '../components/News/NewsList';
-import { getNewsByCategory } from '../data/mockNews'; // Using mock for now
+import { getNewsByCategory } from '../data/mockNews';
 import './BookmarksPage.css';
 
 export default function BookmarksPage() {
-  // Mocking saved articles for now
   const savedNews = useMemo(() => {
     const all = getNewsByCategory('all');
-    return all.slice(0, 4); // Just some sample saved items
+    return all.slice(0, 4); 
   }, []);
 
   return (
     <div className="bookmarks-page" id="bookmarks-page">
       <div className="bookmarks-page__header">
-        <h1 className="bookmarks-page__title">🔖 Bookmarks</h1>
+        <h1 className="bookmarks-page__title">Bookmarks</h1>
         <p className="bookmarks-page__info">You have {savedNews.length} saved posts</p>
       </div>
 
@@ -26,9 +25,8 @@ export default function BookmarksPage() {
           <NewsList articles={savedNews} title="Saved for later" />
         ) : (
           <div className="feed-empty">
-            <span className="feed-empty__icon">🔖</span>
             <h3 className="feed-empty__title">No bookmarks yet</h3>
-            <p className="feed-empty__text">Click the bookmark icon on any card to save it here.</p>
+            <p className="feed-empty__text">Click "Save" on any card to store articles here.</p>
           </div>
         )}
       </div>

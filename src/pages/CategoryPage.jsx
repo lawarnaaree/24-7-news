@@ -1,5 +1,5 @@
 /* ============================================
-   CategoryPage — daily.dev filtered feed
+   CategoryPage — Minimalist filtered feed
    ============================================ */
 
 import { useMemo } from 'react';
@@ -19,7 +19,7 @@ export default function CategoryPage() {
       <div className="cat-page">
         <div className="cat-page__empty">
           <h2>Category not found</h2>
-          <Link to="/" className="cat-page__back">← Back to Feed</Link>
+          <Link to="/" className="cat-page__back">Back to Feed</Link>
         </div>
       </div>
     );
@@ -28,7 +28,6 @@ export default function CategoryPage() {
   return (
     <div className="cat-page" id="category-page">
       <div className="cat-page__header">
-        <span className="cat-page__icon">{category.icon}</span>
         <div>
           <h1 className="cat-page__title">{category.name}</h1>
           <p className="cat-page__count">{news.length} posts</p>
@@ -40,7 +39,7 @@ export default function CategoryPage() {
           .slice(0, 6)
           .map((c) => (
             <Link key={c.slug} to={`/category/${c.slug}`} className="cat-page__pill">
-              {c.icon} {c.name}
+              {c.name}
             </Link>
           ))}
       </div>

@@ -3,8 +3,8 @@
    ============================================ */
 
 import { useParams, Link } from 'react-router-dom';
-import { getNewsById } from '../../data/mockNews';
-import { timeAgo } from '../../utils/formatDate';
+import { getNewsById } from '../data/mockNews';
+import { timeAgo } from '../utils/formatDate';
 import './NewsDetailPage.css';
 
 export default function NewsDetailPage() {

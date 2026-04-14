@@ -1,5 +1,5 @@
 /* ============================================
-   ArticlesHub — Knowledge section (daily.dev style)
+   ArticlesHub — Minimalist knowledge section
    ============================================ */
 
 import { useState, useMemo } from 'react';
@@ -19,16 +19,12 @@ export default function ArticlesHub() {
 
   return (
     <div className="articles-hub" id="articles-hub">
-      {/* Header */}
       <div className="articles-hub__header">
         <div className="articles-hub__header-left">
-          <h1 className="articles-hub__title">📚 Knowledge Hub</h1>
+          <h1 className="articles-hub__title">Knowledge Hub</h1>
           <p className="articles-hub__desc">In-depth articles on science, history, tech & more</p>
         </div>
         <div className="articles-hub__search">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
-          </svg>
           <input
             type="text"
             placeholder="Search articles..."
@@ -37,23 +33,22 @@ export default function ArticlesHub() {
             className="articles-hub__search-input"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="articles-hub__search-clear">✕</button>
+            <button onClick={() => setSearchQuery('')} className="articles-hub__search-clear">Clear</button>
           )}
         </div>
       </div>
 
-      {/* Category Tabs */}
       <div className="articles-hub__tabs">
         <button
           className={`feed-tab ${activeCategory === 'all' ? 'feed-tab--active' : ''}`}
           onClick={() => { setActiveCategory('all'); setSearchQuery(''); }}
-        >🌐 All</button>
+        >All</button>
         {ARTICLE_CATEGORIES.map((cat) => (
           <button
             key={cat.slug}
             className={`feed-tab ${activeCategory === cat.slug ? 'feed-tab--active' : ''}`}
             onClick={() => { setActiveCategory(cat.slug); setSearchQuery(''); }}
-          >{cat.icon} {cat.name}</button>
+          >{cat.name}</button>
         ))}
       </div>
 
@@ -69,7 +64,6 @@ export default function ArticlesHub() {
         </div>
       ) : (
         <div className="feed-empty">
-          <span className="feed-empty__icon">🔎</span>
           <h3 className="feed-empty__title">No articles found</h3>
           <p className="feed-empty__text">Try a different search or category.</p>
         </div>
